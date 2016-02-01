@@ -47,9 +47,17 @@
 #+RESULTS:
 [[file:vagrant-architecture.png]]
 
-#+BEGIN_NOTES
-hello notes
-#+END_NOTES
+
+** Softwares used
+For this demostration I have used [[https://releases.hashicorp.com/vagrant/1.7.4/][vagrant version 1.7.4]] instead of the latest 1.8.1, because at the moment the libvirt provider - which is a community plugin - is not compatible with the latest release.
+
+Installed 3rd party plugins
+#+begin_src sh
+vagrant plugin install vagrant-libvirt # libvirt provider
+vagrant plugin install vagrant-openstack # openstack provider
+vagrant plugin install vagrant-proxmox # proxmox provider
+vagrant plugin install landrush # dnsmaq plugin, to resolve VM names as vmname.vagrant.dev
+#+end_src
 
 * Developer's day
 
