@@ -1,0 +1,112 @@
+#+title: A cashual day using Vagrant
+#+author: Norbert Sana
+#+email: norbert.sana@ericsson.com
+
+
+#+REVEAL_HLEVEL: 2
+#+REVEAL_ROOT: .
+#+REVEAL_THEME: white
+
+* What is Vargant in a nutshell
+- managing virtual development environments
+- using different virtualization engines as "providers"
+- extensible via plugins
+- supports "pluggable" provisioning systems
+- public registry of base "boxes" (like dockerhub)
+
+
+** Vagrant arhitecture
+
+#+BEGIN_SRC ditaa :file vagrant-architecture.png :exports results
++---------------------------------------------------------------+
+|cPNK          	            	      	                        |
+|              	            	      	                        |
+|              	            	      	                        |
+|              	  Vagrant   	      	                        |
+|                                                               |
+|                                                               |
+|                                                               |
+|                                                               |
+|                                                               |
+|                                                               |
+|                                                               |
+|                                      +------------------------+
+|                                      |cBLU                    |
+|                                      |                        |
+|		            	       |    VMware              |
+|                           	       |                        |
+|                +---------------------+------------------------+
+|                |cGRE                 |cYEL                    |
+|                |                     |                        |
+|                |    libvirt          |    VirtualBox          |
+|                |                     |                        |
+|                |                     |                        |
++----------------+---------------------+------------------------+
+#+END_SRC
+
+#+RESULTS:
+[[file:vagrant-architecture.png]]
+
+#+BEGIN_NOTES
+hello notes
+#+END_NOTES
+
+* Developer's day
+
+** vagrant up --provision
+- base box
+- provisioner
+  - inline shell
+  - shell script
+  - puppet
+  - chef
+  - salt
+  - *Ansible*
+** Using sync folder
+- (default) providers shared folder feature
+- NFS (the host is the server, needs sudo priviledges)
+- SAMBA (same as NFS)
+- rsync (one-way, host -> guest)
+  - rsync-auto
+** sharing environment
+**** Vagrantfile (include in the project repo)
+**** boxes (via the hashicorp atlas registry or http)
+**** vagrant share (via hashicorps atlas)
+
+** tidy up & recreate env
+#+begin_src sh
+$ vagrant destroy
+$ vagrant up
+$ ## or force reprovision
+$ vagrant up --provision
+#+end_src
+*** deploying to a remote env
+    (libvirt, OpenStack, Proxmox, EC2, Rackspace
+
+**** "local" providers
+- needs a base box for the provider
+- spins up a VM locally (in case of libvirt can be remote host)
+
+
+**** cloud providers
+AWS, OpenStack, Proxmox
+- does not upload the base image
+- provider base image id or name
+- no need to specify a base box in newer versions
+
+* Infrastruture guy's day
+
+** Boxes, providers
+- each provider has to have a base box
+- you can build your own
+
+*** vagrant package
+- works only with VirtualBox
+- still have a need of a base box
+
+*** packer
+- separate project by hashicorp
+- builds an image from scratch
+  - install ISO
+  - kickstart file/asnwer file
+  - JSON file
