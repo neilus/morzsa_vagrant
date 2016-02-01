@@ -57,6 +57,20 @@ vagrant plugin install vagrant-libvirt # libvirt provider
 vagrant plugin install vagrant-openstack # openstack provider
 vagrant plugin install vagrant-proxmox # proxmox provider
 vagrant plugin install landrush # dnsmaq plugin, to resolve VM names as vmname.vagrant.dev
+vagrant plugin install vagrant-mutate # plugin to convert virtualbox boxes to libvirt
+
+vagrant box add ubuntu/trusty64
+vagrant mutate ubuntu/trusty64 libvirt
+
+vagrant box list # what i have on my machine right now
+dummy                (proxmox, 0)
+hashicorp/connect-vm (virtualbox, 0.1.0)
+trusty64             (virtualbox, 0)
+ubuntu/trusty64      (libvirt, 20151217.0.0)
+ubuntu/trusty64      (virtualbox, 20151217.0.0)
+ubuntu/trusty64      (libvirt, 20160122.0.0)
+ubuntu/trusty64      (virtualbox, 20160122.0.0)
+
 #+end_src
 
 * Developer's day
