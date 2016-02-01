@@ -59,8 +59,8 @@ vagrant plugin install vagrant-proxmox # proxmox provider
 vagrant plugin install landrush # dnsmaq plugin, to resolve VM names as vmname.vagrant.dev
 vagrant plugin install vagrant-mutate # plugin to convert virtualbox boxes to libvirt
 
-vagrant box add ubuntu/trusty64
-vagrant mutate ubuntu/trusty64 libvirt
+vagrant box add ubuntu/trusty64 # downloads a virtualbox image from atlas.hashicorp.com
+vagrant mutate ubuntu/trusty64 libvirt # converts the virtualbox image into a libvirt compatible vagrant box
 
 vagrant box list # what i have on my machine right now
 dummy                (proxmox, 0)
